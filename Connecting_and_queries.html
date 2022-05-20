@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connecting and running queries &mdash; firebolt-python-sdk  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Managing engines and databases" href="Managing_resources.html" />
+    <link rel="prev" title="Firebolt-python-sdk" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> firebolt-python-sdk
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Connecting and querying</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-a-connection">Setting up a connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-and-query-examples">Command and query examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inserting-and-selecting-data">Inserting and selecting data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fetching-query-results">Fetching query results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executing-parameterized-queries">Executing parameterized queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executing-multiple-statement-queries">Executing multiple-statement queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-date-and-datetime-values">Using DATE and DATETIME values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Managing_resources.html">Managing resources</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.async_db.html">Async_db</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.common.html">Common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.db.html">Db</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.service.html">Service</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">firebolt-python-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Connecting and running queries</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Connecting_and_queries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="connecting-and-running-queries">
+<h1>Connecting and running queries<a class="headerlink" href="#connecting-and-running-queries" title="Permalink to this headline"></a></h1>
+<p>This topic provides a walkthrough and examples for how to use the Firebolt Python SDK to connect to Firebolt resources to run commands and query data.</p>
+<section id="setting-up-a-connection">
+<h2>Setting up a connection<a class="headerlink" href="#setting-up-a-connection" title="Permalink to this headline"></a></h2>
+<p>To connect to a Firebolt database to run queries or command, you must provide your account credentials through a connection request.</p>
+<p>To get started, follow the steps below:</p>
+<p><strong>1. Import modules</strong></p>
+<blockquote>
+<div><p>The Firebolt Python SDK requires you to import the following modules before making any command or query requests to your Firebolt database.</p>
+</div></blockquote>
+<blockquote id="required-connection-imports">
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">firebolt.db</span> <span class="kn">import</span> <span class="n">connect</span>
+<span class="kn">from</span> <span class="nn">firebolt.client</span> <span class="kn">import</span> <span class="n">DEFAULT_API_URL</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p id="connecting-with-credentials-example"><strong>2. Connect to your database and engine</strong></p>
+<blockquote>
+<div><p>Your account information can be provided as parameters in a <code class="docutils literal notranslate"><span class="pre">connection()</span></code> function.</p>
+<p>A connection requires the following parameters:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">username</span></code></p></td>
+<td><p>The email address associated with your Firebolt user.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></td>
+<td><p>The password used for connecting to Firebolt.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p>The name of the database you would like to connect to.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_name</span></code> or <code class="docutils literal notranslate"><span class="pre">engine_url</span></code></p></td>
+<td><p>The name or URL of the engine to use for SQL queries.</p>
+<p>If the engine is not specified, your default engine is used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This information can be provided in multiple ways.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Set credentials manually</strong></p>
+<blockquote>
+<div><p>You can manually include your account information in a connection object in your code for any queries you want to request.</p>
+<p>Replace the values in the example code below with your Firebolt account credentials as appropriate.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;your_username&quot;</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;your_password&quot;</span>
+<span class="n">engine_name</span> <span class="o">=</span> <span class="s2">&quot;your_engine&quot;</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s2">&quot;your_database&quot;</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span>
+        <span class="n">engine_name</span><span class="o">=</span><span class="n">engine_name</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+        <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Use an .env file</strong></p>
+<blockquote>
+<div><p>Consolidating all of your Firebolt credentials into a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file can help protect sensitive information from exposure. Create an <code class="docutils literal notranslate"><span class="pre">.env</span></code> file with the following key-value pairs, and replace the values with your information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FIREBOLT_USER</span><span class="o">=</span><span class="s2">&quot;your_username&quot;</span>
+<span class="n">FIREBOLT_PASSWORD</span><span class="o">=</span><span class="s2">&quot;your_password&quot;</span>
+<span class="n">FIREBOLT_ENGINE</span><span class="o">=</span><span class="s2">&quot;your_engine&quot;</span>
+<span class="n">FIREBOLT_DB</span><span class="o">=</span><span class="s2">&quot;your_database&quot;</span>
+</pre></div>
+</div>
+<p>Be sure to place this <code class="docutils literal notranslate"><span class="pre">.env</span></code> file into your root directory.</p>
+<p>Your connection script can load these environmental variables from the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file by using the <a class="reference external" href="https://pypi.org/project/python-dotenv/">python-dotenv</a> package. Note that the example below imports the <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">dotenv</span></code> modules in order to load the environmental variables.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span>
+        <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FIREBOLT_USER&#39;</span><span class="p">),</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FIREBOLT_PASSWORD&#39;</span><span class="p">),</span>
+        <span class="n">engine_name</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FIREBOLT_ENGINE&#39;</span><span class="p">),</span>
+        <span class="n">database</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FIREBOLT_DB&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>3. Execute commands using the cursor</strong></p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">cursor</span></code> object can be used to send queries and commands to your Firebolt database and engine. See below for examples of functions using the <code class="docutils literal notranslate"><span class="pre">cursor</span></code> object.</p>
+</div></blockquote>
+</section>
+<section id="command-and-query-examples">
+<h2>Command and query examples<a class="headerlink" href="#command-and-query-examples" title="Permalink to this headline"></a></h2>
+<p>This section includes Python examples of various SQL commands and queries.</p>
+<section id="inserting-and-selecting-data">
+<h3>Inserting and selecting data<a class="headerlink" href="#inserting-and-selecting-data" title="Permalink to this headline"></a></h3>
+<p id="basic-execute-example">The example below uses <code class="docutils literal notranslate"><span class="pre">cursor</span></code> to create a new table called <code class="docutils literal notranslate"><span class="pre">test_table</span></code>, insert rows into it, and then select the table’s contents.</p>
+<p>The engine attached to your specified database must be started before executing any queries. For help, see <a class="reference internal" href="Managing_resources.html#starting-an-engine"><span class="std std-ref">Starting an engine</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="sd">&#39;&#39;&#39;CREATE FACT TABLE IF NOT EXISTS test_table (</span>
+<span class="sd">                id INT,</span>
+<span class="sd">                name TEXT</span>
+<span class="sd">                )</span>
+<span class="sd">                PRIMARY INDEX id;&#39;&#39;&#39;</span>
+        <span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="sd">&#39;&#39;&#39;INSERT INTO test_table VALUES</span>
+<span class="sd">                (1, &#39;hello&#39;),</span>
+<span class="sd">                (2, &#39;world&#39;),</span>
+<span class="sd">                (3, &#39;!&#39;);&#39;&#39;&#39;</span>
+        <span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="sd">&#39;&#39;&#39;SELECT * FROM test_table;&#39;&#39;&#39;</span>
+        <span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For reference documentation on <code class="docutils literal notranslate"><span class="pre">cursor</span></code> functions, see <a class="reference internal" href="firebolt.db.html#module-firebolt.db.cursor"><span class="std std-ref">Db.cursor</span></a></p>
+</div>
+</section>
+<section id="fetching-query-results">
+<h3>Fetching query results<a class="headerlink" href="#fetching-query-results" title="Permalink to this headline"></a></h3>
+<p>After running a query, you can fetch the results using a <code class="docutils literal notranslate"><span class="pre">cursor</span></code> object. The examples below use the data queried from <code class="docutils literal notranslate"><span class="pre">test_table</span></code> created in the <a class="reference internal" href="#inserting-and-selecting-data"><span class="std std-ref">Inserting and selecting data</span></a>.</p>
+<div class="highlight-default notranslate" id="fetch-example"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Returns</strong>: <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">'world']</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchmany</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Returns</strong>: <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">'hello'],</span> <span class="pre">[3,</span> <span class="pre">'!']]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Returns</strong>: <code class="docutils literal notranslate"><span class="pre">[[2,</span> <span class="pre">'world'],</span> <span class="pre">[1,</span> <span class="pre">'hello'],</span> <span class="pre">[3,</span> <span class="pre">'!']]</span></code></p>
+</section>
+<section id="executing-parameterized-queries">
+<h3>Executing parameterized queries<a class="headerlink" href="#executing-parameterized-queries" title="Permalink to this headline"></a></h3>
+<p id="parameterized-query-execute-example">Parameterized queries (also known as “prepared statements”) format a SQL query with placeholders and then pass values into those placeholders when the query is run. This protects against SQL injection attacks and also helps manage dynamic queries that are likely to change, such as filter UIs or access control.</p>
+<p>To run a parameterized query, use the <code class="docutils literal notranslate"><span class="pre">execute()</span></code> cursor method. Add placeholders to your statement using question marks <code class="docutils literal notranslate"><span class="pre">?</span></code>, and in the second argument pass a tuple of parameters equal in length to the  number of <code class="docutils literal notranslate"><span class="pre">?</span></code> in the statement.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="sd">&#39;&#39;&#39;CREATE FACT TABLE IF NOT EXISTS test_table2 (</span>
+<span class="sd">                id INT,</span>
+<span class="sd">                name TEXT,</span>
+<span class="sd">                date_value DATE</span>
+<span class="sd">        )</span>
+<span class="sd">                PRIMARY INDEX id;&#39;&#39;&#39;</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO test_table2 VALUES (?, ?, ?)&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-01-01&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p id="parameterized-query-executemany-example">If you need to run the same statement multiple times with different parameter inputs, you can use the <code class="docutils literal notranslate"><span class="pre">executemany()</span></code> cursor method. This allows multiple tuples to be passed as values in the second argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO test_table2 VALUES (?, ?, ?)&quot;</span><span class="p">,</span>
+        <span class="p">(</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;carrot&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-01-01&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;donut&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-01-01&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-multiple-statement-queries">
+<h3>Executing multiple-statement queries<a class="headerlink" href="#executing-multiple-statement-queries" title="Permalink to this headline"></a></h3>
+<p>Multiple-statement queries allow you to run a series of SQL statements sequentially with just one method call. Statements are separated using a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code>, similar to making SQL statements in the Firebolt UI.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                SELECT * FROM test_table WHERE id &lt; 4;</span>
+<span class="sd">                SELECT * FROM test_table WHERE id &gt; 2;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First query: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+<span class="k">assert</span> <span class="n">cursor</span><span class="o">.</span><span class="n">nextset</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Second query: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+<span class="k">assert</span> <span class="n">cursor</span><span class="o">.</span><span class="n">nextset</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Returns</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">First</span> <span class="n">query</span><span class="p">:</span>  <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]]</span>
+<span class="n">Second</span> <span class="n">query</span><span class="p">:</span>  <span class="p">[[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;donut&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiple statement queries are not able to use placeholder values for parameterized queries.</p>
+</div>
+</section>
+<section id="using-date-and-datetime-values">
+<h3>Using DATE and DATETIME values<a class="headerlink" href="#using-date-and-datetime-values" title="Permalink to this headline"></a></h3>
+<p>DATE, DATETIME and TIMESTAMP values used in SQL insertion statements must be provided in a specific format; otherwise they could be read incorrectly.</p>
+<ul class="simple">
+<li><p>DATE values should be formatted as <strong>YYYY-MM-DD</strong></p></li>
+<li><p>DATETIME and TIMESTAMP values should be formatted as <strong>YYYY-MM-DD HH:MM:SS.SSSSSS</strong></p></li>
+</ul>
+<p>The <a class="reference external" href="https://docs.python.org/3/library/datetime.html">datetime</a> module from the Python standard library contains various classes and methods to format DATE, TIMESTAMP and DATETIME data types.</p>
+<p>You can import this module as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Firebolt-python-sdk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Managing_resources.html" class="btn btn-neutral float-right" title="Managing engines and databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Firebolt.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

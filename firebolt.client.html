@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client &mdash; firebolt-python-sdk  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common" href="firebolt.common.html" />
+    <link rel="prev" title="Async_db" href="firebolt.async_db.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> firebolt-python-sdk
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Connecting_and_queries.html">Connecting and querying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Managing_resources.html">Managing resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="firebolt.async_db.html">Async_db</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-firebolt.client.auth">Client.auth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-firebolt.client.client">Client.client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-firebolt.client.resource_manager_hooks">Client.resource_manager_hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.common.html">Common</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.db.html">Db</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebolt.service.html">Service</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">firebolt-python-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Client</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/firebolt.client.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="client">
+<h1>Client<a class="headerlink" href="#client" title="Permalink to this headline"></a></h1>
+<p>The client package contains functionality for user authentication and logging requests.</p>
+<section id="module-firebolt.client.auth">
+<span id="client-auth"></span><h2>Client.auth<a class="headerlink" href="#module-firebolt.client.auth" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">firebolt.client.auth.</span></span><span class="sig-name descname"><span class="pre">Auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'api.app.firebolt.io'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_token_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firebolt.client.auth.Auth" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">httpx.Auth</span></code></p>
+<p>Authentication class for Firebolt database.</p>
+<p>Gets authentication token using
+provided credentials and updates it when it expires</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Username</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Password</p></li>
+<li><p><strong>api_endpoint</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Environment api endpoint.
+Default api.app.firebolt.io</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.username">
+<span class="sig-name descname"><span class="pre">username</span></span><a class="headerlink" href="#firebolt.client.auth.Auth.username" title="Permalink to this definition"></a></dt>
+<dd><p>Username</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.password">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#firebolt.client.auth.Auth.password" title="Permalink to this definition"></a></dt>
+<dd><p>Password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.auth_flow">
+<span class="sig-name descname"><span class="pre">auth_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">httpx.Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">httpx.Request</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">httpx.Response</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#firebolt.client.auth.Auth.auth_flow" title="Permalink to this definition"></a></dt>
+<dd><p>Add authorization token to request headers.</p>
+<p>Overrides <code class="docutils literal notranslate"><span class="pre">httpx.Auth.auth_flow</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – Request object to update</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>Request</em> – Request required for auth flow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth"><span class="pre">firebolt.client.auth.Auth</span></a></span></span><a class="headerlink" href="#firebolt.client.auth.Auth.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Make another auth object with same credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Auth object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth">Auth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.expired">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">expired</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#firebolt.client.auth.Auth.expired" title="Permalink to this definition"></a></dt>
+<dd><p>Check if current token is expired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if expired, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.from_token">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth"><span class="pre">firebolt.client.auth.Auth</span></a></span></span><a class="headerlink" href="#firebolt.client.auth.Auth.from_token" title="Permalink to this definition"></a></dt>
+<dd><p>Create auth based on already acquired token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Bearer token</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Auth object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth">Auth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.get_new_token_generator">
+<span class="sig-name descname"><span class="pre">get_new_token_generator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">httpx.Request</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">httpx.Response</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#firebolt.client.auth.Auth.get_new_token_generator" title="Permalink to this definition"></a></dt>
+<dd><p>Get new token using username and password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><p><em>Request</em> – An http request to get token. Expects Response to be sent back</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="firebolt.common.html#firebolt.common.exception.AuthenticationError" title="firebolt.common.exception.AuthenticationError"><strong>AuthenticationError</strong></a> – Error while authenticating with provided credentials</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.requires_response_body">
+<span class="sig-name descname"><span class="pre">requires_response_body</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#firebolt.client.auth.Auth.requires_response_body" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="firebolt.client.auth.Auth.token">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#firebolt.client.auth.Auth.token" title="Permalink to this definition"></a></dt>
+<dd><p>Acquired bearer token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Acquired token</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">username</span></span><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-firebolt.client.client">
+<span id="client-client"></span><h2>Client.client<a class="headerlink" href="#module-firebolt.client.client" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="firebolt.client.client.AsyncClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">firebolt.client.client.</span></span><span class="sig-name descname"><span class="pre">AsyncClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'api.app.firebolt.io'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Request</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Request</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth"><span class="pre">Auth</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firebolt.client.client.AsyncClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">firebolt.client.client.FireboltClientMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">httpx.AsyncClient</span></code></p>
+<p>An HTTP client, based on httpx.AsyncClient.</p>
+<p>Asyncronously handles authentication for Firebolt database.
+Authentication can be passed through auth keyword as a tuple or as a
+FireboltAuth instance</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="firebolt.client.client.AsyncClient.account_id">
+<span class="sig-name descname"><span class="pre">account_id</span></span><a class="headerlink" href="#firebolt.client.client.AsyncClient.account_id" title="Permalink to this definition"></a></dt>
+<dd><p>User account id.</p>
+<p>If account_name was provided during AsyncClient construction, returns it’s id.
+Gets default account otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Account ID</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="firebolt.common.html#firebolt.common.exception.AccountNotFoundError" title="firebolt.common.exception.AccountNotFoundError"><strong>AccountNotFoundError</strong></a> – No account found with provided name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="firebolt.client.client.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">firebolt.client.client.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'api.app.firebolt.io'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Request</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Request</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#firebolt.client.auth.Auth" title="firebolt.client.auth.Auth"><span class="pre">Auth</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firebolt.client.client.Client" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">firebolt.client.client.FireboltClientMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">httpx.Client</span></code></p>
+<p>An HTTP client, based on httpx.Client.</p>
+<p>Handles the authentication for Firebolt database.
+Authentication can be passed through auth keyword as a tuple or as a
+FireboltAuth instance</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="firebolt.client.client.Client.account_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">account_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#firebolt.client.client.Client.account_id" title="Permalink to this definition"></a></dt>
+<dd><p>User account id.</p>
+<p>If account_name was provided during Client construction, returns it’s id.
+Gets default account otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Account ID</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="firebolt.common.html#firebolt.common.exception.AccountNotFoundError" title="firebolt.common.exception.AccountNotFoundError"><strong>AccountNotFoundError</strong></a> – No account found with provided name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-firebolt.client.resource_manager_hooks">
+<span id="client-resource-manager-hooks"></span><h2>Client.resource_manager_hooks<a class="headerlink" href="#module-firebolt.client.resource_manager_hooks" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="firebolt.client.resource_manager_hooks.log_request">
+<span class="sig-prename descclassname"><span class="pre">firebolt.client.resource_manager_hooks.</span></span><span class="sig-name descname"><span class="pre">log_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">httpx.Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#firebolt.client.resource_manager_hooks.log_request" title="Permalink to this definition"></a></dt>
+<dd><p>Log HTTP requests.</p>
+<p>Hook for an HTTP client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – Request to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="firebolt.client.resource_manager_hooks.log_response">
+<span class="sig-prename descclassname"><span class="pre">firebolt.client.resource_manager_hooks.</span></span><span class="sig-name descname"><span class="pre">log_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">httpx.Response</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#firebolt.client.resource_manager_hooks.log_response" title="Permalink to this definition"></a></dt>
+<dd><p>Log HTTP response.</p>
+<p>Hook for an HTTP client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>Response</em>) – Response to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="firebolt.client.resource_manager_hooks.raise_on_4xx_5xx">
+<span class="sig-prename descclassname"><span class="pre">firebolt.client.resource_manager_hooks.</span></span><span class="sig-name descname"><span class="pre">raise_on_4xx_5xx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">httpx.Response</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#firebolt.client.resource_manager_hooks.raise_on_4xx_5xx" title="Permalink to this definition"></a></dt>
+<dd><p>Raise an error on HTTP response with error return code.</p>
+<p>Hook for an HTTP client
+If an error is message is found raise as an ApiError</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>Response</em>) – Response to check for error code</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>RequestError</strong> – Error during performing request</p></li>
+<li><p><strong>RuntimeError</strong> – Error processing request on server</p></li>
+<li><p><strong>HTTPStatusError</strong> – HTTP error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="firebolt.async_db.html" class="btn btn-neutral float-left" title="Async_db" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="firebolt.common.html" class="btn btn-neutral float-right" title="Common" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Firebolt.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
